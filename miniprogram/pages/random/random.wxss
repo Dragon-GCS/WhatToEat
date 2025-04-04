@@ -1,0 +1,98 @@
+/**random.wxss**/
+.container {
+  padding: 20rpx;
+}
+
+.filter-bar {
+  margin-bottom: 20rpx;
+}
+
+.filters-panel {
+  background: #fff;
+  padding: 20rpx;
+  border-radius: 16rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.1);
+}
+
+.filter-group {
+  margin-bottom: 20rpx;
+}
+
+.filter-group text {
+  display: block;
+  margin-bottom: 10rpx;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 10rpx;
+}
+
+.tag {
+  background: #f0f0f0;
+  padding: 8rpx 16rpx;
+  border-radius: 20rpx;
+  margin-right: 10rpx;
+  margin-bottom: 10rpx;
+  transition: all 0.2s ease-in-out; /* 添加过渡效果 */
+}
+
+.tag.active {
+  background: #07c160;
+  color: #fff;
+}
+
+.action-bar {
+  display: flex;
+  justify-content: space-around;
+  margin: 30rpx 0;
+}
+
+.action-bar button {
+  width: 45%;
+}
+
+.dish-card {
+  background: #fff;
+  padding: 20rpx;
+  border-radius: 16rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.1);
+}
+
+.dish-name {
+  font-size: 36rpx;
+  font-weight: bold;
+  margin-bottom: 10rpx;
+}
+
+.dish-tags text {
+  display: inline-block;
+  background: #f0f0f0;
+  padding: 4rpx 12rpx;
+  border-radius: 20rpx;
+  margin-right: 10rpx;
+  font-size: 24rpx;
+}
+
+.dish-rating {
+  margin: 15rpx 0;
+}
+
+.star {
+  color: #ccc;
+  font-size: 36rpx;
+  margin-right: 6rpx;
+}
+
+.star.active {
+  color: #ffb400;
+}
+
+.dish-recipe text {
+  display: block;
+  color: #666;
+  margin: 8rpx 0;
+  font-size: 28rpx;
+}

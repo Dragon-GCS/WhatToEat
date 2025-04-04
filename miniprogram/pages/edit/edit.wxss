@@ -1,0 +1,49 @@
+.container {
+  padding: 32rpx;
+}
+
+.form-group {
+  margin-bottom: 32rpx;
+}
+
+.form-group text {
+  display: block;
+  margin-bottom: 16rpx;
+  font-size: 30rpx;
+  color: #333;
+}
+
+input, textarea {
+  width: 100%;
+  border: 1rpx solid #ddd;
+  border-radius: 8rpx;
+  padding: 16rpx;
+  font-size: 30rpx;
+}
+
+textarea {
+  min-height: 200rpx;
+}
+
+image {
+  width: 200rpx;
+  height: 200rpx;
+  margin-bottom: 16rpx;
+}
+
+.form-actions {
+  margin-top: 48rpx;
+  display: flex;
+  justify-content: space-between;
+}
+
+.submit-btn {
+  background: #07c160;
+  color: white;
+  flex: 1;
+  margin-right: 16rpx;
+}
+
+button[type=default] {
+  flex: 1;
+}

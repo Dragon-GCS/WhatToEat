@@ -1,0 +1,83 @@
+<!--index.wxml-->
+<view class="container">
+  <!-- 顶部操作栏 -->
+  <view class="action-bar">
+    <button class="add-btn" bindtap="navigateToAdd">+ 添加菜品</button>
+    <button class="random-btn" bindtap="navigateToRandom">🎲 随机推荐</button>
+  </view>
+
+  <!-- 菜品列表 -->
+  <scroll-view class="dish-list" scroll-y>
+    <view class="dish-card" wx:for="{{dishes}}" wx:key="id" bindtap="navigateToDetail" data-id="{{item.id}}">
+      <image wx:if="{{item.image}}" class="dish-image" src="{{item.image}}" mode="aspectFill"></image>
+      <view class="dish-header">
+        <text class="dish-name">{{item.name}}</text>
+        <view class="dish-tags">
+          <text wx:for="{{item.tags}}" wx:key="*this">{{item}}</text>
+        </view>
+      </view>
+
+
+      <view class="dish-footer">
+        <view class="rating">
+          <text wx:for="{{[1,2,3,4,5]}}" wx:key="*this" wx:for-item="rate"
+                class="star {{rate <= item.userRating ? 'active' : ''}}"
+                bindtap="rateDish" data-id="{{item.id}}" data-rating="{{rate}}">★</text>
+        </view>
+        <view class="favorite" bindtap="toggleFavorite" data-id="{{item.id}}">
+          {{item.isFavorite ? '❤️' : '🤍'}}
+        </view>
+        <view class="delete" catchtap="deleteDish" data-id="{{item.id}}">
+          🗑️
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- 新增菜品对话框 -->
+  <view class="dialog" wx:if="{{showAddDialog}}">
+    <view class="dialog-content">
+      <view class="dialog-header">
+        <text>添加新菜品</text>
+        <button class="close-btn" bindtap="hideAddDishDialog">×</button>
+      </view>
+
+      <view class="form-group">
+        <text>菜品名称</text>
+        <input placeholder="请输入菜品名称"
+               value="{{newDish.name}}"
+               bindinput="handleInputChange"
+               data-field="name"/>
+      </view>
+
+      <view class="form-group">
+        <text>标签(逗号分隔)</text>
+        <input placeholder="例如: 家常,快手"
+               value="{{newDish.tags}}"
+               bindinput="handleInputChange"
+               data-field="tags"/>
+      </view>
+
+      <view class="form-group">
+        <text>食材(每行一个)</text>
+        <textarea placeholder="例如: 番茄2个\n鸡蛋3个"
+                  value="{{newDish.recipe}}"
+                  bindinput="handleInputChange"
+                  data-field="recipe"/>
+        <!-- TODO: Modify the corresponding JavaScript file to ensure newDish.recipe is properly formatted for textarea -->
+      </view>
+
+      <view class="form-group">
+        <text>菜品图片</text>
+        <view class="image-preview">
+          <image src="{{newDish.image}}" mode="aspectFill" class="preview-image"/>
+          <button wx:if="{{!newDish.image}}" bindtap="chooseImage" class="upload-btn">
+            + 添加图片
+          </button>
+        </view>
+      </view>
+
+      <button class="submit-btn" bindtap="addDish">确认添加</button>
+    </view>
+  </view>
+</view>

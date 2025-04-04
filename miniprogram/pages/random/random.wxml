@@ -1,0 +1,62 @@
+<!--random.wxml-->
+<view class="container">
+  <!-- 筛选器按钮 -->
+  <view class="filter-bar">
+    <button bindtap="toggleFilters">筛选条件</button>
+  </view>
+
+  <!-- 筛选器面板 -->
+  <view class="filters-panel" wx:if="{{showFilters}}">
+    <view class="filter-group">
+      <text>最低评分</text>
+      <slider min="0" max="5" step="1" value="{{filters.minRating}}" 
+              bindchange="updateFilter" data-field="minRating"/>
+      <text>{{filters.minRating}}星及以上</text>
+    </view>
+
+    <view class="filter-group">
+      <checkbox checked="{{filters.onlyFavorites}}" 
+                bindchange="updateFilter" data-field="onlyFavorites">
+        仅收藏
+      </checkbox>
+    </view>
+
+    <view class="filter-group">
+      <text>标签筛选</text>
+      <view class="tags">
+        <text wx:for="{{allTags}}" wx:key="*this" 
+              class="tag {{filters.tags.includes(item) ? 'active' : ''}}"
+              bindtap="toggleTagFilter" data-tag="{{item}}">
+          {{item}}
+        </text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 随机推荐按钮 -->
+  <view class="action-bar">
+    <button bindtap="randomSelect">随机推荐</button>
+    <button bindtap="navigateBack">返回</button>
+  </view>
+
+  <!-- 推荐结果 -->
+  <view class="result" wx:if="{{selectedDish}}">
+    <view class="dish-card">
+      <text class="dish-name">{{selectedDish.name}}</text>
+      
+      <view class="dish-tags">
+        <text wx:for="{{selectedDish.tags}}" wx:key="*this">{{item}}</text>
+      </view>
+
+      <view class="dish-rating">
+        <text>评分: </text>
+        <text wx:for="{{[1,2,3,4,5]}}" wx:key="*this" 
+              class="star {{item <= selectedDish.userRating ? 'active' : ''}}">★</text>
+      </view>
+
+      <view class="dish-recipe">
+        <text wx:for="{{selectedDish.recipe}}" wx:key="*this">{{item}}</text>
+      </view>
+    </view>
+  </view>
+</view>

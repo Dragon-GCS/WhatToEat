@@ -1,0 +1,29 @@
+<view class="container">
+  <form bindsubmit="onSubmit">
+    <view class="form-group">
+      <text>菜品名称</text>
+      <input name="name" value="{{dish.name}}" placeholder="请输入菜品名称"/>
+    </view>
+
+    <view class="form-group">
+      <text>菜品图片</text>
+      <image src="{{dish.image}}" mode="aspectFill" bindtap="chooseImage"></image>
+      <button type="default" bindtap="chooseImage">选择图片</button>
+    </view>
+
+    <view class="form-group">
+      <text>标签</text>
+      <input name="tags" value="{{dish.tags[0] || ''}}" placeholder="输入标签"/>
+    </view>
+
+    <view class="form-group">
+      <text>菜谱步骤</text>
+      <textarea name="recipe" value="{{dish.recipe}}" placeholder="每行一个步骤" auto-height/>
+    </view>
+
+    <view class="form-actions">
+      <button form-type="submit" class="submit-btn">保存</button>
+      <button type="default" bindtap="onCancel">取消</button>
+    </view>
+  </form>
+</view>

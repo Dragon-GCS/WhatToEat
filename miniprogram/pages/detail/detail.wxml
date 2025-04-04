@@ -1,0 +1,39 @@
+<view class="container">
+  <image class="detail-image" src="{{dish.image}}"></image>
+  <view class="detail-content">
+    <view class="basic-info">
+      <text class="dish-name">{{dish.name}}</text>
+      <view class="tags">
+        <text wx:for="{{dish.tags}}" wx:key="index" class="tag">{{item}}</text>
+      </view>
+    </view>
+    
+    <view class="meta-info">
+      <view class="meta-item">
+        <text class="label">收藏状态：</text>
+        <text class="value">{{dish.isFavorite ? '已收藏' : '未收藏'}}</text>
+      </view>
+      <view class="meta-item">
+        <text class="label">我的评分：</text>
+        <text class="value">{{dish.userRating}} 星</text>
+      </view>
+    </view>
+
+    <view class="recipe-section">
+      <view class="section-title">菜谱步骤</view>
+      <view class="recipe-steps">
+        <block wx:for="{{dish.recipe}}" wx:key="*this">
+          <view class="step-item">
+            <text class="step-num">{{index + 1}}.</text>
+            <text class="step-text">{{item}}</text>
+          </view>
+        </block>
+      </view>
+    </view>
+
+    <view class="action-buttons">
+      <button class="edit-btn" bindtap="onEdit">编辑菜品</button>
+      <button class="delete-btn" bindtap="onDelete">删除菜品</button>
+    </view>
+  </view>
+</view>
