@@ -8,14 +8,14 @@
       </view>
     </view>
     
-    <view class="meta-info">
-      <view class="meta-item">
-        <text class="label">收藏状态：</text>
-        <text class="value">{{dish.isFavorite ? '已收藏' : '未收藏'}}</text>
+    <view class="action-row">
+      <view class="rating">
+        <text wx:for="{{[1,2,3,4,5]}}" wx:key="*this" wx:for-item="rate"
+              class="star {{rate <= dish.userRating ? 'active' : ''}}"
+              bindtap="rateDish" data-rating="{{rate}}">★</text>
       </view>
-      <view class="meta-item">
-        <text class="label">我的评分：</text>
-        <text class="value">{{dish.userRating}} 星</text>
+      <view class="favorite-icon" bindtap="toggleFavorite">
+        {{dish.isFavorite ? '❤️' : '🤍'}}
       </view>
     </view>
 

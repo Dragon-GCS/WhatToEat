@@ -23,7 +23,8 @@
 }
 
 .dish-list {
-  height: calc(100vh - 120rpx);
+  height: calc(100vh - 180rpx);
+  padding-bottom: 120rpx; /* 为底部操作栏预留空间 */
 }
 
 .dish-card {

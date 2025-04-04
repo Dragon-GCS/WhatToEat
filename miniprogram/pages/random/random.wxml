@@ -1,29 +1,43 @@
 <!--random.wxml-->
 <view class="container">
-  <!-- 筛选器按钮 -->
-  <view class="filter-bar">
-    <button bindtap="toggleFilters">筛选条件</button>
-  </view>
-
   <!-- 筛选器面板 -->
-  <view class="filters-panel" wx:if="{{showFilters}}">
-    <view class="filter-group">
-      <text>最低评分</text>
-      <slider min="0" max="5" step="1" value="{{filters.minRating}}" 
-              bindchange="updateFilter" data-field="minRating"/>
-      <text>{{filters.minRating}}星及以上</text>
+  <view class="filters-panel">
+    <!-- 评分和收藏在同一行 -->
+    <view class="filter-row">
+      <view class="filter-rating">
+        <view class="rating-header">
+          <text>最低评分</text>
+          <text>{{filters.minRating}}星及以上</text>
+        </view>
+        <view class="rating-slider">
+          <slider min="0" max="5" step="1" value="{{filters.minRating}}"
+                  bindchange="updateFilter" data-field="minRating"
+                  activeColor="#07c160" block-color="#07c160"
+                  show-value="{{false}}" />
+          <view class="slider-scales">
+            <text>0</text>
+            <text>1</text>
+            <text>2</text>
+            <text>3</text>
+            <text>4</text>
+            <text>5</text>
+          </view>
+        </view>
+      </view>
+      
+      <view class="filter-favorite">
+        <checkbox checked="{{filters.onlyFavorites}}"
+                  bindchange="updateFilter" data-field="onlyFavorites"
+                  color="#07c160">
+          仅收藏
+        </checkbox>
+      </view>
     </view>
 
-    <view class="filter-group">
-      <checkbox checked="{{filters.onlyFavorites}}" 
-                bindchange="updateFilter" data-field="onlyFavorites">
-        仅收藏
-      </checkbox>
-    </view>
-
-    <view class="filter-group">
-      <text>标签筛选</text>
+    <!-- 标签筛选在同一行 -->
+    <view class="tags-container">
       <view class="tags">
+        <text class="tags-title">标签筛选</text>
         <block wx:for="{{allTags}}" wx:key="name">
           <text class="tag {{item.selected ? 'active' : ''}}"
                 bindtap="toggleTagFilter" data-tag="{{item.name}}">
@@ -34,30 +48,42 @@
     </view>
   </view>
 
-  <!-- 随机推荐按钮 -->
-  <view class="action-bar">
-    <button bindtap="randomSelect">随机推荐</button>
-    <button bindtap="navigateBack">返回</button>
-  </view>
-
   <!-- 推荐结果 -->
   <view class="result" wx:if="{{selectedDish}}">
+    <view class="dish-card-container {{isFlipping ? 'flipping' : ''}}">
     <view class="dish-card">
-      <text class="dish-name">{{selectedDish.name}}</text>
+      <image wx:if="{{selectedDish.image}}" class="dish-image" src="{{selectedDish.image}}" mode="aspectFill"></image>
       
-      <view class="dish-tags">
-        <text wx:for="{{selectedDish.tags}}" wx:key="*this">{{item}}</text>
-      </view>
-
-      <view class="dish-rating">
-        <text>评分: </text>
-        <text wx:for="{{[1,2,3,4,5]}}" wx:key="*this" 
-              class="star {{item <= selectedDish.userRating ? 'active' : ''}}">★</text>
+      <view class="dish-header">
+        <text class="dish-name">{{selectedDish.name}}</text>
+        <view class="dish-tags">
+          <text wx:for="{{selectedDish.tags}}" wx:key="*this">{{item}}</text>
+        </view>
       </view>
 
       <view class="dish-recipe">
         <text wx:for="{{selectedDish.recipe}}" wx:key="*this">{{item}}</text>
       </view>
+
+      <view class="dish-footer">
+        <view class="rating">
+          <text wx:for="{{[1,2,3,4,5]}}" wx:key="*this" wx:for-item="rate"
+                class="star {{rate <= selectedDish.userRating ? 'active' : ''}}"
+                catchtap="rateDish" data-rating="{{rate}}">★</text>
+        </view>
+        <view class="favorite" catchtap="toggleFavorite">
+          {{selectedDish.isFavorite ? '❤️' : '🤍'}}
+        </view>
+        <view class="edit" catchtap="editDish">
+          ✏️
+        </view>
+      </view>
     </view>
+    </view>
+  </view>
+
+  <!-- 随机推荐按钮 -->
+  <view class="action-bar">
+    <button class="random-btn" bindtap="randomSelect">🎲 换一个</button>
   </view>
 </view>

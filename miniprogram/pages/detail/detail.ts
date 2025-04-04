@@ -53,4 +53,36 @@ Page({
       },
     });
   },
+
+  toggleFavorite() {
+    const dish = { ...this.data.dish, isFavorite: !this.data.dish.isFavorite };
+    this.setData({ dish });
+    this.updateDish(dish);
+  },
+
+  rateDish(e: any) {
+    let { rating } = e.currentTarget.dataset;
+    if (this.data.dish.userRating === rating) {
+      rating = 0;
+    }
+    const dish = {
+      ...this.data.dish,
+      userRating: rating,
+      lastRatedTime: Date.now(),
+    };
+    this.setData({ dish });
+    this.updateDish(dish);
+  },
+
+  updateDish(updatedDish: any) {
+    const app = getApp<IAppOption>();
+    const dishes = app.globalData.dishes.map((d: Dish) => {
+      if (d.id === updatedDish.id) {
+        return updatedDish;
+      }
+      return d;
+    });
+    app.globalData.dishes = dishes;
+    wx.setStorageSync("dishes", dishes);
+  },
 });

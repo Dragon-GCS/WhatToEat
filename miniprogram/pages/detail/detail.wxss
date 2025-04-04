@@ -18,13 +18,14 @@
 .dish-name {
   font-size: 40rpx;
   font-weight: bold;
-  margin-bottom: 24rpx;
+  margin-bottom: 16rpx;
 }
 
 .tags {
+  display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  margin-bottom: 32rpx;
+  margin-bottom: 24rpx;
 }
 
 .tag {
@@ -36,28 +37,39 @@
   font-size: 28rpx;
 }
 
-.meta-info {
+
+/* 操作行样式 */
+.action-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 32rpx;
   background: #f8f8f8;
   border-radius: 16rpx;
-  padding: 24rpx;
-  margin-bottom: 32rpx;
+  padding: 16rpx 24rpx;
 }
 
-.meta-item {
-  flex-direction: row;
-  justify-content: space-between;
-  margin-bottom: 16rpx;
+/* 收藏图标样式 */
+.favorite-icon {
+  font-size: 46rpx;
+  margin-left: 24rpx;
 }
 
-.label {
-  color: #666;
-  font-size: 30rpx;
+/* 评分星星样式 */
+.rating {
+  display: flex;
 }
 
-.value {
-  color: #333;
-  font-size: 30rpx;
-  font-weight: 500;
+.star {
+  color: #ccc;
+  font-size: 46rpx;
+  margin-right: 12rpx;
+  padding: 0 5rpx;
+}
+
+.star.active {
+  color: #ffb400;
 }
 
 .recipe-section {

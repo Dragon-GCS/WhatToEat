@@ -16,12 +16,14 @@ Page({
       tags: [] as string[],
     },
     allTags: [] as TagItem[],
-    showFilters: false,
+    isFlipping: false, // 控制卡片翻转动画
   },
 
   onLoad() {
     this.loadDishes();
     this.extractAllTags();
+    // 页面加载时立即随机选择一个菜品
+    this.randomSelect();
   },
 
   loadDishes() {
@@ -51,11 +53,6 @@ Page({
     });
   },
 
-  toggleFilters() {
-    this.setData({
-      showFilters: !this.data.showFilters,
-    });
-  },
 
   updateFilter(e: any) {
     const { field } = e.currentTarget.dataset;
@@ -116,20 +113,80 @@ Page({
       [pool[i], pool[j]] = [pool[j], pool[i]];
     }
 
-    this.setData(
-      {
+    // 开始翻转动画
+    this.setData({ isFlipping: true });
+
+    // 延迟更新菜品，营造翻转效果
+    setTimeout(() => {
+      this.setData({
         selectedDish: pool[0],
-      },
-      () => {
+      });
+      
+      // 延迟结束翻转动画
+      setTimeout(() => {
+        this.setData({ isFlipping: false });
+        
         wx.pageScrollTo({
           scrollTop: 0,
           duration: 300,
         });
-      }
-    );
+      }, 300);
+    }, 300);
   },
 
-  navigateBack() {
-    wx.navigateBack();
+  // 编辑当前菜品
+  editDish() {
+    if (!this.data.selectedDish) return;
+    
+    wx.navigateTo({
+      url: `../edit/edit?id=${this.data.selectedDish.id}`,
+    });
+  },
+  
+  // 切换收藏状态
+  toggleFavorite() {
+    if (!this.data.selectedDish) return;
+    
+    const dish = { ...this.data.selectedDish, isFavorite: !this.data.selectedDish.isFavorite };
+    this.setData({ selectedDish: dish });
+    this.updateDish(dish);
+  },
+  
+  // 评分
+  rateDish(e: any) {
+    if (!this.data.selectedDish) return;
+    
+    let { rating } = e.currentTarget.dataset;
+    if (this.data.selectedDish.userRating === rating) {
+      rating = 0;
+    }
+    
+    const dish = {
+      ...this.data.selectedDish,
+      userRating: rating,
+      lastRatedTime: Date.now(),
+    };
+    
+    this.setData({ selectedDish: dish });
+    this.updateDish(dish);
+  },
+  
+  // 更新菜品数据
+  updateDish(updatedDish: any) {
+    const app = getApp<IAppOption>();
+    const dishes = app.globalData.dishes.map((d: Dish) => {
+      if (d.id === updatedDish.id) {
+        return updatedDish;
+      }
+      return d;
+    });
+    
+    app.globalData.dishes = dishes;
+    wx.setStorageSync("dishes", dishes);
+    
+    // 更新本地数据
+    this.setData({
+      dishes: dishes
+    });
   },
 });
