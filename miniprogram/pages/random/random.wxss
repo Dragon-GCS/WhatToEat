@@ -31,17 +31,22 @@
 }
 
 .tag {
+  display: inline-block;
+  padding: 4rpx 12rpx;
   background: #f0f0f0;
-  padding: 8rpx 16rpx;
-  border-radius: 20rpx;
-  margin-right: 10rpx;
-  margin-bottom: 10rpx;
-  transition: all 0.2s ease-in-out; /* 添加过渡效果 */
+  margin: 6rpx;
+  border-radius: 6rpx;
+  font-size: 24rpx;
 }
 
 .tag.active {
-  background: #07c160;
-  color: #fff;
+  background: #ff5a5f;
+  color: white;
+  font-weight: bold;
+  border: 2rpx solid #ff5a5f;
+  box-shadow: 0 4rpx 8rpx rgba(255,90,95,0.3);
+  transform: scale(1.05);
+  transition: all 0.2s ease;
 }
 
 .action-bar {

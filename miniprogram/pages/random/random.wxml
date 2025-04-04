@@ -24,11 +24,12 @@
     <view class="filter-group">
       <text>标签筛选</text>
       <view class="tags">
-        <text wx:for="{{allTags}}" wx:key="*this" 
-              class="tag {{filters.tags.includes(item) ? 'active' : ''}}"
-              bindtap="toggleTagFilter" data-tag="{{item}}">
-          {{item}}
-        </text>
+        <block wx:for="{{allTags}}" wx:key="name">
+          <text class="tag {{item.selected ? 'active' : ''}}"
+                bindtap="toggleTagFilter" data-tag="{{item.name}}">
+            {{item.name}}
+          </text>
+        </block>
       </view>
     </view>
   </view>

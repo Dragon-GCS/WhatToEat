@@ -1,10 +1,6 @@
 <!--index.wxml-->
 <view class="container">
-  <!-- 顶部操作栏 -->
-  <view class="action-bar">
-    <button class="add-btn" bindtap="navigateToAdd">+ 添加菜品</button>
-    <button class="random-btn" bindtap="navigateToRandom">🎲 随机推荐</button>
-  </view>
+  <!-- 菜品列表 -->
 
   <!-- 菜品列表 -->
   <scroll-view class="dish-list" scroll-y>
@@ -22,9 +18,9 @@
         <view class="rating">
           <text wx:for="{{[1,2,3,4,5]}}" wx:key="*this" wx:for-item="rate"
                 class="star {{rate <= item.userRating ? 'active' : ''}}"
-                bindtap="rateDish" data-id="{{item.id}}" data-rating="{{rate}}">★</text>
+                catchtap="rateDish" data-id="{{item.id}}" data-rating="{{rate}}">★</text>
         </view>
-        <view class="favorite" bindtap="toggleFavorite" data-id="{{item.id}}">
+        <view class="favorite" catchtap="toggleFavorite" data-id="{{item.id}}">
           {{item.isFavorite ? '❤️' : '🤍'}}
         </view>
         <view class="delete" catchtap="deleteDish" data-id="{{item.id}}">
@@ -33,6 +29,12 @@
       </view>
     </view>
   </scroll-view>
+
+  <!-- 底部操作栏 -->
+  <view class="action-bar">
+    <button class="add-btn" bindtap="navigateToAdd">+ 添加菜品</button>
+    <button class="random-btn" bindtap="navigateToRandom">🎲 随机推荐</button>
+  </view>
 
   <!-- 新增菜品对话框 -->
   <view class="dialog" wx:if="{{showAddDialog}}">

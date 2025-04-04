@@ -1,5 +1,11 @@
 // random.ts
 
+// 定义标签项接口
+interface TagItem {
+  name: string;
+  selected: boolean;
+}
+
 Page({
   data: {
     dishes: [] as Dish[],
@@ -9,7 +15,7 @@ Page({
       onlyFavorites: false,
       tags: [] as string[],
     },
-    allTags: [] as string[],
+    allTags: [] as TagItem[],
     showFilters: false,
   },
 
@@ -26,19 +32,22 @@ Page({
   },
 
   extractAllTags() {
-    const tags = new Set<string>();
+    const tagsSet = new Set<string>();
     const app = getApp<IAppOption>();
+    
+    // 收集所有标签
     app.globalData.dishes.forEach((dish) => {
-      if (dish.tags) {
-        if (Array.isArray(dish.tags)) {
-          dish.tags.forEach((tag) => tags.add(tag));
-        } else if (typeof dish.tags === "string") {
-          tags.add(dish.tags);
-        }
-      }
+      dish.tags.forEach((tag) => tagsSet.add(tag));
     });
+    
+    // 将标签转换为TagItem对象数组
+    const tagItems: TagItem[] = Array.from(tagsSet).map(tag => ({
+      name: tag,
+      selected: false
+    }));
+    
     this.setData({
-      allTags: Array.from(tags),
+      allTags: tagItems
     });
   },
 
@@ -57,19 +66,29 @@ Page({
     });
   },
 
-  toggleTagFilter(tag: string) {
-    const tags = [...this.data.filters.tags]; // Create a copy to avoid direct modification
-    const index = tags.indexOf(tag);
-
-    if (index === -1) {
-      tags.push(tag);
-    } else {
-      tags.splice(index, 1);
-    }
-
+  toggleTagFilter(e: any) {
+    const tagName = e.currentTarget.dataset.tag;
+    
+    // 找到当前标签在allTags中的索引
+    const tagIndex = this.data.allTags.findIndex(item => item.name === tagName);
+    if (tagIndex === -1) return;
+    
+    // 切换标签的选中状态
+    const newAllTags = [...this.data.allTags];
+    newAllTags[tagIndex].selected = !newAllTags[tagIndex].selected;
+    
+    // 更新filters.tags数组（只包含被选中的标签名称）
+    const newFilterTags = newAllTags
+      .filter(item => item.selected)
+      .map(item => item.name);
+    
+    // 更新数据
     this.setData({
-      "filters.tags": tags,
+      'allTags': newAllTags,
+      'filters.tags': newFilterTags
     });
+    
+    console.log("标签切换:", tagName, "当前选中标签:", newFilterTags);
   },
 
   randomSelect() {
