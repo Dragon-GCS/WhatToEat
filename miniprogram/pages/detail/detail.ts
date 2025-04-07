@@ -10,21 +10,16 @@ Page({
       this.setData({ dish });
     }
   },
+  
   onShow() {
     if (!this.data.dish) {
       return;
     }
     const app = getApp<IAppOption>();
-    const dish = app.globalData.dishes.find(
-      (d: Dish) => d.id === this.data.dish.id
-    );
+    const dish = app.globalData.dishes.find((d: Dish) => d.id === this.data.dish.id);
     if (dish) {
       this.setData({ dish });
     }
-  },
-
-  onBack() {
-    wx.navigateBack();
   },
 
   onEdit() {
@@ -65,6 +60,7 @@ Page({
     if (this.data.dish.userRating === rating) {
       rating = 0;
     }
+    
     const dish = {
       ...this.data.dish,
       userRating: rating,

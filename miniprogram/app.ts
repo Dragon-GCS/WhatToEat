@@ -43,18 +43,10 @@ App<IAppOption>({
     ]
   },
   onLaunch() {
-    // 初始化时尝试从本地存储加载数据
+    // 初始化时从本地存储加载数据
     const storedDishes = wx.getStorageSync('dishes');
     if (storedDishes) {
       this.globalData.dishes = storedDishes;
     }
-
-    // 登录
-    wx.login({
-      success: res => {
-        console.log(res.code)
-        // 发送 res.code 到后台换取 openId, sessionKey, unionId
-      },
-    })
   },
 })

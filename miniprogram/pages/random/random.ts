@@ -53,7 +53,6 @@ Page({
     });
   },
 
-
   updateFilter(e: any) {
     const { field } = e.currentTarget.dataset;
     const value = e.detail.value;
@@ -107,11 +106,9 @@ Page({
       return;
     }
 
-    // Fisher-Yates shuffle
-    for (let i = pool.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [pool[i], pool[j]] = [pool[j], pool[i]];
-    }
+    // 随机选择一个菜品
+    const randomIndex = Math.floor(Math.random() * pool.length);
+    const selectedDish = pool[randomIndex];
 
     // 开始翻转动画
     this.setData({ isFlipping: true });
@@ -119,7 +116,7 @@ Page({
     // 延迟更新菜品，营造翻转效果
     setTimeout(() => {
       this.setData({
-        selectedDish: pool[0],
+        selectedDish: selectedDish,
       });
       
       // 延迟结束翻转动画

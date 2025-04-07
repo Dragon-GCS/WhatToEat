@@ -26,17 +26,15 @@ Page({
   },
 
   rateDish(e: any) {
-    var { id, rating } = e.currentTarget.dataset;
+    const { id, rating } = e.currentTarget.dataset;
     const dishes = this.data.dishes.map((dish) => {
       if (dish.id !== id) {
         return dish;
       }
-      if (dish.userRating === rating) {
-        rating = 0;
-      }
+      const newRating = dish.userRating === rating ? 0 : rating;
       return {
         ...dish,
-        userRating: rating,
+        userRating: newRating,
         lastRatedTime: Date.now(),
       };
     });

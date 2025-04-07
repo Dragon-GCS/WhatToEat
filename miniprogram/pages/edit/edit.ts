@@ -62,7 +62,6 @@ Page({
 
   // 从所有菜品中提取不重复的标签
   getAllTags(dishes: Dish[]): string[] {
-    console.log("获取标签的菜品数组:", dishes);
     const tagSet = new Set<string>();
 
     // 确保dishes是数组且不为空
