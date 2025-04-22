@@ -110,6 +110,8 @@ Page({
 
   onSubmit(e: any) {
     const formData = e.detail.value;
+    const app = getApp<IAppOption>();
+
     const updatedDish: Dish = {
       ...this.data.dish,
       name: formData.name,
@@ -124,7 +126,6 @@ Page({
       createTime: this.data.dish.createTime || Date.now(),
     };
 
-    const app = getApp<IAppOption>();
     const dishes = app.globalData.dishes.map((d: Dish) =>
       d.id === updatedDish.id ? updatedDish : d
     );
@@ -132,7 +133,8 @@ Page({
       dishes.push(updatedDish);
     }
     app.globalData.dishes = dishes;
-    wx.setStorageSync("dishes", dishes);
+    // 保存到文件系统
+    app.saveDish(updatedDish);
     wx.navigateBack();
   },
 

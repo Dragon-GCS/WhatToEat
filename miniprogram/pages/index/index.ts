@@ -16,36 +16,28 @@ Page({
 
   toggleFavorite(e: any) {
     const { id } = e.currentTarget.dataset;
-    const dishes = this.data.dishes.map((dish) => {
+    const app = getApp<IAppOption>();
+    this.data.dishes.map((dish) => {
       if (dish.id === id) {
-        return { ...dish, isFavorite: !dish.isFavorite };
+        dish.isFavorite = !dish.isFavorite;
+        app.saveDish(dish);
       }
-      return dish;
     });
-    this.updateDishes(dishes);
   },
 
   rateDish(e: any) {
     const { id, rating } = e.currentTarget.dataset;
-    const dishes = this.data.dishes.map((dish) => {
-      if (dish.id !== id) {
-        return dish;
-      }
-      const newRating = dish.userRating === rating ? 0 : rating;
-      return {
-        ...dish,
-        userRating: newRating,
-        lastRatedTime: Date.now(),
-      };
-    });
-    this.updateDishes(dishes);
-  },
-
-  updateDishes(dishes: Dish[]) {
-    this.setData({ dishes });
     const app = getApp<IAppOption>();
+    const dishes = this.data.dishes.map((dish) => {
+      if (dish.id === id) {
+        dish.userRating = dish.userRating === rating ? 0 : rating;
+        dish.lastRatedTime = Date.now();
+        app.saveDish(dish);
+      }
+      return dish;
+    });
+    this.setData({ dishes });
     app.globalData.dishes = dishes;
-    wx.setStorageSync("dishes", dishes);
   },
 
   navigateToRandom() {
@@ -75,8 +67,14 @@ Page({
       content: "确定要删除这个菜品吗？",
       success: (res) => {
         if (res.confirm) {
+          const app = getApp<IAppOption>();
+          const targetDish = this.data.dishes.find((dish) => dish.id === id);
+          if (targetDish) {
+            app.deleteDish(targetDish);
+          }
           const dishes = this.data.dishes.filter((dish) => dish.id !== id);
-          this.updateDishes(dishes);
+          this.setData({ dishes });
+          app.globalData.dishes = dishes;
         }
       },
     });
