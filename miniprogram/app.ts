@@ -92,6 +92,9 @@ App<IAppOption>({
   deleteDish(dish: Dish) {
     const fileName = `${dish.id}.json`;
     const filePath = `${this.globalData.dataDir}/${fileName}`;
-    console.log(this.globalData.fs.unlinkSync(filePath))
+    if (dish.image) {
+      this.globalData.fs.unlinkSync(dish.image);
+    }
+    this.globalData.fs.unlinkSync(filePath);
   }
 });

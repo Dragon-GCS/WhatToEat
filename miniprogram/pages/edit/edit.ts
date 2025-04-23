@@ -27,7 +27,7 @@ Page({
   onLoad(options: { id?: string }) {
     const app = getApp<IAppOption>();
 
-    if (options.id) {
+    if (options.id !== "undefined") {
       const dish = app.globalData.dishes.find((d: Dish) => d.id === options.id);
       if (dish) {
         // 将菜谱步骤数组转换为换行符分隔的字符串
@@ -92,7 +92,6 @@ Page({
       ];
       defaultTags.forEach((tag) => tagSet.add(tag));
     }
-
     return Array.from(tagSet);
   },
 
@@ -101,9 +100,18 @@ Page({
       count: 1,
       mediaType: ["image"],
       success: (res) => {
-        this.setData({
-          "dish.image": res.tempFiles[0].tempFilePath,
-        });
+        const app = getApp<IAppOption>();
+        const fs = app.globalData.fs;
+        const tmpFilePath = res.tempFiles[0].tempFilePath;
+        const fileName = tmpFilePath.split("/").pop() || `${Date.now()}.jpg`;
+        const filePath = `${app.globalData.dataDir}/${fileName}`;
+        const originImage = this.data.dish.image;
+        console.log(this.data, tmpFilePath, filePath);
+        if (originImage) {
+          fs.unlink({ filePath: originImage });
+        }
+        fs.copyFileSync(tmpFilePath, filePath);
+        this.setData({ "dish.image": filePath });
       },
     });
   },
