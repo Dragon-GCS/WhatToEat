@@ -34,7 +34,7 @@
         <view class="tag-list">
           <block wx:if="{{allTags.length > 0}}">
             <view wx:for="{{allTags}}" wx:key="*this"
-              class="tag-suggestion {{currentTags.includes(item) ? 'selected' : ''}}" bindtap="selectTag"
+              class="tag-suggestion {{isTagExist(item) ? 'selected' : ''}}" bindtap="selectTag"
               data-tag="{{item}}">
               {{item}}
             </view>

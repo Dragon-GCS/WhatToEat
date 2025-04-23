@@ -60,7 +60,6 @@ App<IAppOption>({
       // 目录不存在，创建它
       try {
         fs.mkdirSync(dishesDir, true);
-        console.log("Created dishes directory");
         // 新创建的目录是空的，使用默认菜品
         return;
       } catch (mkdirErr) {
@@ -79,7 +78,6 @@ App<IAppOption>({
         this.globalData.dishes.push(dish);
       }
     }
-    console.log(this.globalData)
   },
 
   // 将菜品保存为文件

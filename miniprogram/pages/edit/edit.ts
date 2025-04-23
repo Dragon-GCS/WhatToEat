@@ -106,7 +106,6 @@ Page({
         const fileName = tmpFilePath.split("/").pop() || `${Date.now()}.jpg`;
         const filePath = `${app.globalData.dataDir}/${fileName}`;
         const originImage = this.data.dish.image;
-        console.log(this.data, tmpFilePath, filePath);
         if (originImage) {
           fs.unlink({ filePath: originImage });
         }
@@ -159,6 +158,9 @@ Page({
     this.setData({
       newTag: e.detail.value,
     });
+  },
+  isTagExist(tag: string) {
+    return this.data.currentTags.includes(tag);
   },
 
   // 添加新标签

@@ -83,8 +83,6 @@ Page({
       'allTags': newAllTags,
       'filters.tags': newFilterTags
     });
-
-    console.log("标签切换:", tagName, "当前选中标签:", newFilterTags);
   },
 
   randomSelect() {
