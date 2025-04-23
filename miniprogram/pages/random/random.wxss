@@ -125,19 +125,6 @@
   transform: scale(1.05);
 }
 
-/* 随机推荐按钮 */
-.action-bar {
-  display: flex;
-  justify-content: center;
-  margin-top: 30rpx;
-  margin-bottom: 30rpx;
-  padding: 10rpx;
-  position: fixed;
-  bottom: 30rpx;
-  left: 0;
-  right: 0;
-}
-
 .random-btn {
   background: #07c160;
   color: white;

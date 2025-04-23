@@ -8,3 +8,15 @@
   padding: 200rpx 0;
   box-sizing: border-box;
 } 
+
+.action-bar {
+  display: flex;
+  justify-content: center;
+  margin-top: 30rpx;
+  margin-bottom: 30rpx;
+  padding: 10rpx;
+  position: fixed;
+  bottom: 50rpx;
+  left: 0;
+  right: 0;
+}

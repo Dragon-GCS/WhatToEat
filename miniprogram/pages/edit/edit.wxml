@@ -2,7 +2,7 @@
   <form bindsubmit="onSubmit">
     <view class="form-group">
       <text>菜品名称</text>
-      <input name="name" value="{{dish.name}}" placeholder="请输入菜品名称"/>
+      <input name="name" value="{{dish.name}}" placeholder="请输入菜品名称" />
     </view>
 
     <view class="form-group">
@@ -13,29 +13,29 @@
 
     <view class="form-group">
       <text>标签</text>
-      
+
       <!-- 已选标签显示区域 -->
       <view class="selected-tags">
         <view wx:for="{{currentTags}}" wx:key="*this" class="tag-item">
-          <text>{{item}}</text>
+          {{item}}
           <text class="tag-delete" bindtap="removeTag" data-index="{{index}}">×</text>
         </view>
       </view>
-      
+
       <!-- 标签输入区域 -->
       <view class="tag-input-area">
-        <input value="{{newTag}}" placeholder="输入新标签" bindinput="onTagInput"/>
+        <input value="{{newTag}}" placeholder="输入新标签" bindinput="onTagInput" />
         <button class="tag-add-btn" bindtap="addTag">添加</button>
       </view>
-      
+
       <!-- 现有标签选择区域 -->
       <view class="tag-suggestions">
         <text>从现有标签中选择：</text>
         <view class="tag-list">
           <block wx:if="{{allTags.length > 0}}">
             <view wx:for="{{allTags}}" wx:key="*this"
-                  class="tag-suggestion {{currentTags.includes(item) ? 'selected' : ''}}"
-                  bindtap="selectTag" data-tag="{{item}}">
+              class="tag-suggestion {{currentTags.includes(item) ? 'selected' : ''}}" bindtap="selectTag"
+              data-tag="{{item}}">
               {{item}}
             </view>
           </block>
@@ -48,7 +48,7 @@
 
     <view class="form-group">
       <text>菜谱步骤</text>
-      <textarea name="recipe" value="{{recipeText}}" placeholder="每行一个步骤" auto-height/>
+      <textarea name="recipe" value="{{recipeText}}" placeholder="每行一个步骤" auto-height />
     </view>
 
     <view class="form-actions">

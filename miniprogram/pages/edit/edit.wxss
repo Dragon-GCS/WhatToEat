@@ -32,7 +32,7 @@ image {
 }
 
 .form-actions {
-  margin-top: 48rpx;
+  margin-top: 60rpx;
   display: flex;
   justify-content: space-between;
 }

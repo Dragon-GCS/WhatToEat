@@ -3,18 +3,6 @@
   padding: 20rpx;
 }
 
-.action-bar {
-  display: flex;
-  justify-content: center;
-  margin-top: 10rpx;
-  margin-bottom: 30rpx;
-  padding: 10rpx;
-  position: fixed;
-  bottom: 30rpx;
-  left: 0;
-  right: 0;
-}
-
 .add-btn, .random-btn {
   font-size: 28rpx;
   padding: 20rpx 30rpx;

@@ -10,10 +10,8 @@
           <text>{{filters.minRating}}星及以上</text>
         </view>
         <view class="rating-slider">
-          <slider min="0" max="5" step="1" value="{{filters.minRating}}"
-                  bindchange="updateFilter" data-field="minRating"
-                  activeColor="#07c160" block-color="#07c160"
-                  show-value="{{false}}" />
+          <slider min="0" max="5" step="1" value="{{filters.minRating}}" bindchange="updateFilter"
+            data-field="minRating" activeColor="#07c160" block-color="#07c160" show-value="{{false}}" />
           <view class="slider-scales">
             <text>0</text>
             <text>1</text>
@@ -24,11 +22,10 @@
           </view>
         </view>
       </view>
-      
+
       <view class="filter-favorite">
-        <checkbox checked="{{filters.onlyFavorites}}"
-                  bindchange="updateFilter" data-field="onlyFavorites"
-                  color="#07c160">
+        <checkbox checked="{{filters.onlyFavorites}}" bindchange="updateFilter" data-field="onlyFavorites"
+          color="#07c160">
           仅收藏
         </checkbox>
       </view>
@@ -39,10 +36,9 @@
       <view class="tags">
         <text class="tags-title">标签筛选</text>
         <block wx:for="{{allTags}}" wx:key="name">
-          <text class="tag {{item.selected ? 'active' : ''}}"
-                bindtap="toggleTagFilter" data-tag="{{item.name}}">
+          <view class="tag {{item.selected ? 'active' : ''}}" bindtap="toggleTagFilter" data-tag="{{item.name}}">
             {{item.name}}
-          </text>
+          </view>
         </block>
       </view>
     </view>
@@ -51,34 +47,34 @@
   <!-- 推荐结果 -->
   <view class="result" wx:if="{{selectedDish}}">
     <view class="dish-card-container {{isFlipping ? 'flipping' : ''}}">
-    <view class="dish-card">
-      <image wx:if="{{selectedDish.image}}" class="dish-image" src="{{selectedDish.image}}" mode="aspectFill"></image>
-      
-      <view class="dish-header">
-        <text class="dish-name">{{selectedDish.name}}</text>
-        <view class="dish-tags">
-          <text wx:for="{{selectedDish.tags}}" wx:key="*this">{{item}}</text>
-        </view>
-      </view>
+      <view class="dish-card">
+        <image wx:if="{{selectedDish.image}}" class="dish-image" src="{{selectedDish.image}}" mode="aspectFill"></image>
 
-      <view class="dish-recipe">
-        <text wx:for="{{selectedDish.recipe}}" wx:key="*this">{{item}}</text>
-      </view>
+        <view class="dish-header">
+          <text class="dish-name">{{selectedDish.name}}</text>
+          <view class="dish-tags">
+            <text wx:for="{{selectedDish.tags}}" wx:key="*this">{{item}}</text>
+          </view>
+        </view>
 
-      <view class="dish-footer">
-        <view class="rating">
-          <text wx:for="{{[1,2,3,4,5]}}" wx:key="*this" wx:for-item="rate"
-                class="star {{rate <= selectedDish.userRating ? 'active' : ''}}"
-                catchtap="rateDish" data-rating="{{rate}}">★</text>
+        <view class="dish-recipe">
+          <text wx:for="{{selectedDish.recipe}}" wx:key="*this">{{item}}</text>
         </view>
-        <view class="favorite" catchtap="toggleFavorite">
-          {{selectedDish.isFavorite ? '❤️' : '🤍'}}
-        </view>
-        <view class="edit" catchtap="editDish">
-          ✏️
+
+        <view class="dish-footer">
+          <view class="rating">
+            <text wx:for="{{[1,2,3,4,5]}}" wx:key="*this" wx:for-item="rate"
+              class="star {{rate <= selectedDish.userRating ? 'active' : ''}}" catchtap="rateDish"
+              data-rating="{{rate}}">★</text>
+          </view>
+          <view class="favorite" catchtap="toggleFavorite">
+            {{selectedDish.isFavorite ? '❤️' : '🤍'}}
+          </view>
+          <view class="edit" catchtap="editDish">
+            ✏️
+          </view>
         </view>
       </view>
-    </view>
     </view>
   </view>
 
